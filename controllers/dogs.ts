@@ -45,14 +45,14 @@ export const fetchAllDogs: HandlerFunc = async (c: Context) => {
     if (fetchedDogs) {
       const fetchedDogsList = fetchedDogs.length
         ? fetchedDogs.map((dog) => {
-            const {
-              _id: { $oid },
-              name,
-              breed,
-              age,
-            } = dog;
-            return { id: $oid, name, breed, age };
-          })
+          const {
+            _id: { $oid },
+            name,
+            breed,
+            age,
+          } = dog;
+          return { id: $oid, name, breed, age };
+        })
         : [];
       return c.json(fetchedDogsList, 200);
     }
@@ -101,7 +101,7 @@ export const updateDog: HandlerFunc = async (c: Context) => {
     if (fetchedDog) {
       const { matchedCount } = await dogs.updateOne(
         { _id: { $oid: id } },
-        { $set: body }
+        { $set: body },
       );
       if (matchedCount) {
         return c.string("Dog updated successfully!", 204);
